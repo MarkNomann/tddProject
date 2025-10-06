@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: tddProject
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USERNAME}
+    password: ${JDBC_PASSWORD}
+    driver-class-name: org.postgresql.Driver
