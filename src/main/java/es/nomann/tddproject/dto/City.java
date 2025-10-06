@@ -34,9 +34,8 @@ public class City {
     public void setName(String name) { this.name = name; }
 
     public List<Person> getPeople() { return people; }
-    public void setPeople(List<Person> people) { this.people = people; }
 
-    public void addPerson(Person person) {
+    public void setPeople(Person person) {
         people.add(person);
     }
 

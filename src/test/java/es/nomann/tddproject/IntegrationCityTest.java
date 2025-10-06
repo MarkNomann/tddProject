@@ -22,9 +22,9 @@ public class IntegrationCityTest {
         cityRepository.save(city);
         Person person = new Person(1L,"1","Moscow");
         Person person1 = new Person(2L,"2","London");
-        city.addPerson(person);
+        city.setPeople(person);
         person.setCity(city);
-        city.addPerson(person1);
+        city.setPeople(person1);
         person1.setCity(city);
         assertThat(city.getPeople().size()).isEqualTo(2);
         assertEquals("2", city.getPeople().get(1).getUsername());
