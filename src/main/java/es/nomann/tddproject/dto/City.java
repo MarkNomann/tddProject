@@ -16,7 +16,7 @@ public class City {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Person> people = new ArrayList<>();
 
     public City() {}

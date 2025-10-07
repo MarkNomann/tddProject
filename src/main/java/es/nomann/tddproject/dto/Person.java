@@ -11,7 +11,8 @@ public class Person {
     private String username;
     private String email;
     @ManyToOne
-    private City city;
+    @JoinColumn(name = "city_id")
+    private City city_id;
 
     public Person() {}
 
@@ -46,10 +47,10 @@ public class Person {
         this.email = email;
     }
     public City getCity() {
-        return city;
+        return city_id;
     }
     public void setCity(City city) {
-        this.city = city;
+        this.city_id = city;
     }
 }
 
