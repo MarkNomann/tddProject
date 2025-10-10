@@ -37,6 +37,7 @@ public class City {
 
     public void setPeople(Person person) {
         people.add(person);
+        person.setCity(this);
     }
 
     public void removePerson(Person person) {

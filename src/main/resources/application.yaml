@@ -2,11 +2,12 @@ spring:
   application:
     name: tddProject
   datasource:
-    url: jdbc:postgresql://localhost:5432/marksismuz
-    username: marksismuz
-    password: itDreamer09721
+    url: ${JDBC_URL}
+    username: ${JDBC_USERNAME}
+    password: ${JDBC_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect

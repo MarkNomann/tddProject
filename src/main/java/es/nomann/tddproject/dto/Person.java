@@ -17,9 +17,11 @@ public class Person {
     public Person() {}
 
 
-    public Person(String username, String email) {
+    public Person(Long id,String username, String email, City city) {
+        this.id = id;
         this.username = username;
         this.email = email;
+        this.city_id = city;
     }
 
     public Person(Long id, String username, String email) {

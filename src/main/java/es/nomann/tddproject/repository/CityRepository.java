@@ -1,6 +1,7 @@
 package es.nomann.tddproject.repository;
 
 import es.nomann.tddproject.dto.City;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

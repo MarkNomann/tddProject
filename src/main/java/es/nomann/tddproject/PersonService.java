@@ -1,5 +1,6 @@
 package es.nomann.tddproject;
 
+import es.nomann.tddproject.dto.City;
 import es.nomann.tddproject.dto.Person;
 import es.nomann.tddproject.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,12 @@ public class PersonService {
         this.repository = repository;
     }
 
-    public Person createPerson() {
+    public Person createPerson(Long id, String username, String email, City city) {
         Person p = new Person();
-        p.setId(11L);
-        p.setUsername("test");
-        p.setEmail("test@test");
+        p.setId(id);
+        p.setUsername(username);
+        p.setEmail(email);
+        p.setCity(city);
         repository.save(p);
         return p;
     }
