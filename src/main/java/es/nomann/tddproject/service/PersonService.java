@@ -1,9 +1,8 @@
-package es.nomann.tddproject;
+package es.nomann.tddproject.service;
 
 import es.nomann.tddproject.dto.City;
 import es.nomann.tddproject.dto.Person;
 import es.nomann.tddproject.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,12 +15,23 @@ public class PersonService {
     }
 
     public Person createPerson(Long id, String username, String email, City city) {
-        Person p = new Person();
-        p.setId(id);
-        p.setUsername(username);
-        p.setEmail(email);
-        p.setCity(city);
-        repository.save(p);
-        return p;
+        Person person = new Person();
+        person.setId(id);
+        person.setUsername(username);
+        person.setEmail(email);
+        person.setCity(city);
+        repository.save(person);
+        return person;
     }
+
+    public Person deletePerson(Long id) {
+        Person person = repository.findById(id).orElse(null);
+        repository.delete(person);
+        return person;
+    }
+
+
+
+
+
 }

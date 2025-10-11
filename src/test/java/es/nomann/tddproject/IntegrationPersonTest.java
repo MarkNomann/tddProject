@@ -1,6 +1,8 @@
 package es.nomann.tddproject;
 
 import es.nomann.tddproject.dto.City;
+import es.nomann.tddproject.service.PersonService;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @Import(PersonService.class)
@@ -30,5 +31,11 @@ public class IntegrationPersonTest {
        var person = service.createPerson(id,name,email,city);
        assertNotNull(person);
        assertEquals(name,person.getUsername());
+    }
+
+    @Test
+    public void deletePerson(Long id) {
+        var toDelete = service.deletePerson(id);
+        assertNull(toDelete);
     }
 }
