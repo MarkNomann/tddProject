@@ -28,9 +28,9 @@ public class IntegrationPersonTest {
     })
     public void testCreatePerson(Long id, String name, String email) {
         City city = new City();
-       var person = service.createPerson(id,name,email,city);
-       assertNotNull(person);
-       assertEquals(name,person.getUsername());
+        var person = service.createPerson(id,name,email,city);
+        assertNotNull(person);
+        assertEquals(name,person.getUsername());
     }
 
     @Test

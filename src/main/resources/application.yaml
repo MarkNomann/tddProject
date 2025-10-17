@@ -14,3 +14,5 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.default_schema: public
+  liquibase:
+    change-log: classpath:/db/migrations/V0__baseline.sql
