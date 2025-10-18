@@ -14,14 +14,17 @@ public class PersonService {
         this.repository = repository;
     }
 
-    public Person createPerson(Long id, String username, String email, City city) {
+    public Person createPerson(Long id, String username, String email) {
         Person person = new Person();
         person.setId(id);
         person.setUsername(username);
         person.setEmail(email);
-        person.setCity(city);
         repository.save(person);
         return person;
+    }
+
+    public Person findPerson(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     public Person deletePerson(Long id) {
