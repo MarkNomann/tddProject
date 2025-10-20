@@ -27,6 +27,11 @@ jobs:
           cache: maven
 
       - name: Start PostgreSQL (using secrets)
+        env:
+          SPRING_DATASOURCE_URL: ${{ secrets.JDBC_URL }}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.JDBC_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
         run: |
           echo "🚀 Starting PostgreSQL using secrets..."
           docker run -d \
