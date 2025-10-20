@@ -10,20 +10,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      # Spring Boot configuration from secrets
+      SPRING_DATASOURCE_URL: ${{ secrets.JDBC_URL }}
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.JDBC_USERNAME }}
+      SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+      # PostgreSQL container init values (from secrets)
+      POSTGRES_DB: marksismuz
+      POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
+      POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+
     services:
       postgres:
         image: postgres:17
-        env:
-          # Spring Boot configuration from secrets
-          SPRING_DATASOURCE_URL: ${{ secrets.JDBC_URL }}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.JDBC_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
-          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-
-      # PostgreSQL container init values (from secrets)
-          POSTGRES_DB: marksismuz
-          POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
-          POSTGRES_PASSWORD: itDreamer09721
         ports:
           - 5432:5432
         options: >-
