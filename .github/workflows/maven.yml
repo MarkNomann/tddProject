@@ -24,8 +24,8 @@ jobs:
         image: postgres:17
         env:
           POSTGRES_DB: marksismuz
-          POSTGRES_USER: ${{ secrets.JDBC_USERNAME || 'postgres'}}
-          POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD || 'postgres'}}
+          POSTGRES_USER: marksismuz
+          POSTGRES_PASSWORD: itDreamer09721
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
