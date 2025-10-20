@@ -35,7 +35,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+      - name: Debug secrets
+        run: |
+          echo "JDBC_PASSWORD length: ${#JDBC_PASSWORD}"
+        env:
+          JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
