@@ -25,7 +25,7 @@ jobs:
         env:
           POSTGRES_DB: marksismuz
           POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
-          POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
