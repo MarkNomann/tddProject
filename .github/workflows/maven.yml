@@ -11,25 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      POSTGRES_DB: marksismuz
+      POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
+      POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
       SPRING_DATASOURCE_URL: ${{ secrets.JDBC_URL }}
       SPRING_DATASOURCE_USERNAME: ${{ secrets.JDBC_USERNAME }}
       SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-      POSTGRES_DB: marksismuz
-      POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
-      POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
 
     services:
       postgres:
         image: postgres:17
         env:
           POSTGRES_DB: marksismuz
-          POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
-          POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+          # Use already expanded job env vars — not `${{ secrets.* }}`
+          POSTGRES_USER: $POSTGRES_USER
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready -U ${{ secrets.JDBC_USERNAME }}
+          --health-cmd "pg_isready -U postgres"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -44,11 +45,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Wait for PostgreSQL to be ready
+      - name: Wait for PostgreSQL
         run: |
           echo "⏳ Waiting for PostgreSQL..."
           for i in {1..15}; do
-            if pg_isready -h localhost -U $POSTGRES_USER -d $POSTGRES_DB > /dev/null 2>&1; then
+            if pg_isready -h localhost -U "$POSTGRES_USER" -d "$POSTGRES_DB" > /dev/null 2>&1; then
               echo "✅ PostgreSQL is ready!"
               break
             fi
