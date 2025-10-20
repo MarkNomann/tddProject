@@ -67,22 +67,5 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Install PostgreSQL client
-        run: sudo apt-get update && sudo apt-get install -y postgresql-client
-
-      - name: Wait for PostgreSQL to become ready
-        run: |
-          echo "⏳ Waiting for PostgreSQL to be ready..."
-          for i in {1..15}; do
-            if PGPASSWORD="${{ secrets.JDBC_PASSWORD }}" psql \
-              -h localhost \
-              -U "${{ secrets.JDBC_USERNAME }}" \
-              -d marksismuz -c "\conninfo" >/dev/null 2>&1; then
-              echo "✅ PostgreSQL is ready!"
-              break
-            fi
-            sleep 5
-          done
-
       - name: Build with Maven
         run: mvn clean verify -B
