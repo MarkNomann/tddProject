@@ -31,9 +31,13 @@ jobs:
 
     env:
       # These will be provided from GitHub repository secrets
-      JDBC_URL: ${{ secrets.JDBC_URL }}
+      JDBC_URL: jdbc:postgresql://localhost:5432/marksismuz
       JDBC_USERNAME: ${{ secrets.JDBC_USERNAME }}
       JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/marksismuz
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.JDBC_USERNAME }}
+      SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
 
     steps:
     - uses: actions/checkout@v4
