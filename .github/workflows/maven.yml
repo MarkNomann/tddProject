@@ -19,7 +19,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-     env:
+    env:
       # These will be provided from GitHub repository secrets
       JDBC_URL: ${{ secrets.JDBC_URL }}
       JDBC_USERNAME: ${{ secrets.JDBC_USERNAME }}
