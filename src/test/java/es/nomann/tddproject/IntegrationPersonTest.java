@@ -52,8 +52,8 @@ public class IntegrationPersonTest {
         assertNotNull(ret.getCity());
     }
 
-    @Test
+  /*  @Test
     public void testToTest() {
         assertEquals(2,2);
-    }
+    }*/
 }
