@@ -36,9 +36,9 @@ jobs:
 
     env:
       # These will be provided from GitHub repository secrets
-      SPRING_DATASOURCE_URL: ${{secrets.JDBC_URL}}
-      SPRING_DATASOURCE_USERNAME: ${{secrets.JDBC_USERNAME}}
-      SPRING_DATASOURCE_PASSWORD: ${{secrets.JDBC_PASSWORD}}
+      SPRING_DATASOURCE_URL: ${{ jdbc.JDBC_URL }}
+      SPRING_DATASOURCE_USERNAME: ${{ jdbc.JDBC_USERNAME }}
+      SPRING_DATASOURCE_PASSWORD: ${{ jdbc.JDBC_PASSWORD }}
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
 
     steps:
