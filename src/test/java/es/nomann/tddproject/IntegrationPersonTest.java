@@ -51,4 +51,9 @@ public class IntegrationPersonTest {
         var ret = service.assignCityToPerson(150L,1L);
         assertNotNull(ret.getCity());
     }
+
+    @Test
+    public void testToTest() {
+        assertEquals(2,2);
+    }
 }
