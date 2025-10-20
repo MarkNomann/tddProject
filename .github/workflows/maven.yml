@@ -19,6 +19,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: marksismuz
+          POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+        ports:
+          - 5432:5432
+
     env:
       # These will be provided from GitHub repository secrets
       JDBC_URL: ${{ secrets.JDBC_URL }}
