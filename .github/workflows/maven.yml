@@ -16,6 +16,21 @@ jobs:
       SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
 
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: marksismuz
+          POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U ${{ secrets.JDBC_USERNAME }}"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,34 +40,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-
-      - name: Start PostgreSQL (using secrets)
-        env:
-          SPRING_DATASOURCE_URL: ${{ secrets.JDBC_URL }}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.JDBC_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
-          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-        run: |
-          echo "🚀 Starting PostgreSQL using secrets..."
-          docker run -d \
-            --name postgres \
-            -e POSTGRES_DB=marksismuz \
-            -e POSTGRES_USER=${{ JDBC_USERNAME }} \
-            -e POSTGRES_PASSWORD=${{ JDBC_PASSWORD }} \
-            -p 5432:5432 \
-            postgres:17
-
-      - name: Wait for PostgreSQL to be ready
-        run: |
-          echo "⏳ Waiting for PostgreSQL..."
-          for i in {1..15}; do
-            if docker exec postgres pg_isready -U ${{ secrets.JDBC_USERNAME }} > /dev/null 2>&1; then
-              echo "✅ PostgreSQL is ready!"
-              exit 0
-            fi
-            sleep 5
-          done
-          echo "❌ PostgreSQL did not start in time" && exit 1
 
       - name: Verify database connection
         run: |
