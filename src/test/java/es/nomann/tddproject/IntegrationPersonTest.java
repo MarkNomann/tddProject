@@ -1,6 +1,7 @@
 package es.nomann.tddproject;
 
-import es.nomann.tddproject.dto.City;
+import es.nomann.tddproject.repository.CityRepository;
+import es.nomann.tddproject.repository.PersonRepository;
 import es.nomann.tddproject.service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,7 +27,8 @@ public class IntegrationPersonTest {
     @CsvSource({
             "23, ullf, soko@gmail.com",
             "45, anna, anna@example.com",
-            "99, john, john@doe.com"
+            "99, john, john@doe.com",
+            "150, Mark, mark@doe.com"
     })
     @Commit
     public void testCreatePerson(Long id, String name, String email) {
@@ -37,8 +39,16 @@ public class IntegrationPersonTest {
 
     @ParameterizedTest
     @ValueSource(longs = {45,23,99})
+    @Commit
     public void deletePerson(Long id) {
         service.deletePerson(id);
         assertNull(service.findPerson(id));
+    }
+
+    @Test
+    @Commit
+    public void testAssignCity() {
+        var ret = service.assignCityToPerson(150L,1L);
+        assertNotNull(ret.getCity());
     }
 }

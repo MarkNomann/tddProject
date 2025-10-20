@@ -21,6 +21,7 @@ public class IntegrationCityTest {
     private CityRepository cityRepository;
 
     @Test
+    @Commit
     public void testAddCity() {
         City city = new City(1L,"Moscow");
         cityRepository.save(city);
