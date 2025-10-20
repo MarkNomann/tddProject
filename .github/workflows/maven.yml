@@ -37,8 +37,8 @@ jobs:
           docker run -d \
             --name postgres \
             -e POSTGRES_DB=marksismuz \
-            -e POSTGRES_USER=${{ secrets.JDBC_USERNAME }} \
-            -e POSTGRES_PASSWORD=${{ secrets.JDBC_PASSWORD }} \
+            -e POSTGRES_USER=${{ JDBC_USERNAME }} \
+            -e POSTGRES_PASSWORD=${{ JDBC_PASSWORD }} \
             -p 5432:5432 \
             postgres:17
 
