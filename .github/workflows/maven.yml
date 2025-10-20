@@ -23,7 +23,7 @@ jobs:
       # PostgreSQL container init values (from secrets)
           POSTGRES_DB: marksismuz
           POSTGRES_USER: ${{ secrets.JDBC_USERNAME }}
-          POSTGRES_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+          POSTGRES_PASSWORD: itDreamer09721
         ports:
           - 5432:5432
         options: >-
