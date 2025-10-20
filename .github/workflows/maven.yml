@@ -46,7 +46,6 @@ jobs:
 
       - name: Verify database connection
         run: |
-          sudo apt-get install -y postgresql-client
           PGPASSWORD=$POSTGRES_PASSWORD psql \
             -h localhost \
             -U $POSTGRES_USER \
