@@ -19,6 +19,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
+     env:
+      # These will be provided from GitHub repository secrets
+      JDBC_URL: ${{ secrets.JDBC_URL }}
+      JDBC_USERNAME: ${{ secrets.JDBC_USERNAME }}
+      JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+      SPRING_DATASOURCE_URL: ${{ secrets.JDBC_URL }}
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.JDBC_USERNAME }}
+      SPRING_DATASOURCE_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
