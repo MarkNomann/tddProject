@@ -19,6 +19,8 @@ public class City {
     @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Person> people = new ArrayList<>();
 
+    @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Street> streets = new ArrayList<>();
     public City() {}
 
     public City(Long id, String name) {
@@ -38,6 +40,13 @@ public class City {
     public void setPeople(Person person) {
         people.add(person);
         person.setCity(this);
+    }
+
+    public List<Street> getStreets() { return streets; }
+
+    public void setStreets(List<Street> streets) {
+        this.streets = streets;
+        streets.forEach(street -> street.setCity(this));
     }
 
     public void removePerson(Person person) {

@@ -1,3 +1,7 @@
+--liquibase formatted sql
+
+--changeset MarkNomann:V0
+
 CREATE TABLE IF NOT EXISTS city (
     id BIGINT  PRIMARY KEY,
     name VARCHAR(255) NOT NULL

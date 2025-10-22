@@ -37,7 +37,7 @@ public class PersonService {
         return person;
     }
 
-   @Transactional
+    @Transactional
     public Person assignCityToPerson(Long idPerson, Long idCity) {
         Person person = findPerson(idPerson);
         person.setCity(cityRepository.findById(idCity).orElse(null));
