@@ -1,5 +1,6 @@
-package es.nomann.tddproject.dto;
+package es.nomann.tddproject.repository;
 
+import es.nomann.tddproject.dto.Street;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

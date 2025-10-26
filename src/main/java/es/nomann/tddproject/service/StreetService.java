@@ -1,7 +1,7 @@
 package es.nomann.tddproject.service;
 
 import es.nomann.tddproject.dto.Street;
-import es.nomann.tddproject.dto.StreetRepository;
+import es.nomann.tddproject.repository.StreetRepository;
 import org.springframework.stereotype.Service;
 
 @Service
