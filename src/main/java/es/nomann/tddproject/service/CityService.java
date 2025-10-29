@@ -18,4 +18,8 @@ public class CityService {
     public City addCity(final City city) {
         return cityRepository.save(city);
     }
+
+    public void deleteCity(final City city) {
+        cityRepository.delete(city);
+    }
 }

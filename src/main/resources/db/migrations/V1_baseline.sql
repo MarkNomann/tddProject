@@ -9,3 +9,5 @@ CREATE TABLE IF NOT EXISTS street (
     name VARCHAR(255) NOT NULL,
     city_id BIGINT REFERENCES city(id)
 )
+
+

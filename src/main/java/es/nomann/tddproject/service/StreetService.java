@@ -1,7 +1,9 @@
 package es.nomann.tddproject.service;
 
+import es.nomann.tddproject.dto.City;
 import es.nomann.tddproject.dto.Street;
 import es.nomann.tddproject.repository.StreetRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,12 @@ public class StreetService {
 
     public Street findStreetByName(String name) {
         return streetRepository.findByName(name);
+    }
+
+    @Transactional
+    public Street setToCity(Street street, City city) {
+        street.setCity(city);
+        return streetRepository.save(street);
     }
 
 

@@ -2,6 +2,9 @@ package es.nomann.tddproject.dto;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 public class Street {
 
@@ -12,13 +15,20 @@ public class Street {
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city_id;
+    @ManyToMany
+    @JoinTable(
+            name = "neighbors",
+            joinColumns = @JoinColumn(name = "street_id"),
+            inverseJoinColumns = @JoinColumn(name = "neighbor_id")
+    )
+    private Set<Street> neighbors;
 
-    public Street() {
-    }
+    public Street() {}
 
-    public Street(final String name, final City city_id) {
+    public Street(final String name, final City city_id, Set<Street> neighbors) {
         this.name = name;
         this.city_id = city_id;
+        this.neighbors = neighbors;
     }
 
     public Long getId() {
@@ -33,7 +43,7 @@ public class Street {
         return city_id;
     }
 
-    public void setCity(City city) {this.name = name;
+    public void setCity(City city) {
         this.city_id = city;
     }
 
@@ -43,5 +53,13 @@ public class Street {
 
     public String getName() {
         return name;
+    }
+
+    public Set<Street> getNeighbors() {
+        return neighbors;
+    }
+
+    public void setNeighbors(Set<Street> neighbors) {
+        this.neighbors = neighbors;
     }
 }

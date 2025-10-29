@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/migrations/V0_baseline.sql
   - include:
       file: db/migrations/V1_baseline.sql
+  - include:
+      file: db/migrations/V2_baseline.sql
