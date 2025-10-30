@@ -6,6 +6,9 @@ import es.nomann.tddproject.repository.StreetRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class StreetService {
 
@@ -31,6 +34,17 @@ public class StreetService {
     public Street setToCity(Street street, City city) {
         street.setCity(city);
         return streetRepository.save(street);
+    }
+
+    public void setNeighbors(Street street, Set<Street> neighbors) {
+        var mainStreet = streetRepository.findByName(street.getName());
+        var set = mainStreet.getNeighbors();
+        if (set == null) {
+            set = new HashSet<>();
+        }
+        set.addAll(neighbors);
+        mainStreet.setNeighbors(set);
+        streetRepository.save(mainStreet);
     }
 
 

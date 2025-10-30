@@ -15,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Commit;
 
+import java.util.HashSet;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
