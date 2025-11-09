@@ -5,6 +5,8 @@ import es.nomann.tddproject.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CityService {
 
@@ -21,5 +23,9 @@ public class CityService {
 
     public void deleteCity(final City city) {
         cityRepository.delete(city);
+    }
+
+    public List<City> cities() {
+        return cityRepository.findAll();
     }
 }

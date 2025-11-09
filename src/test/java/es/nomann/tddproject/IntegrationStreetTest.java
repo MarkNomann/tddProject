@@ -5,19 +5,26 @@ import es.nomann.tddproject.dto.Street;
 import es.nomann.tddproject.repository.CityRepository;
 import es.nomann.tddproject.service.CityService;
 import es.nomann.tddproject.service.StreetService;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 @Import({StreetService.class, CityService.class})
@@ -38,29 +45,21 @@ public class IntegrationStreetTest {
         cityService.addCity(city);
     }
 
-    @Test
-    @Commit
-    public void testAddCity() {
-       // var streets = cityService.findById(1L).getStreets();
+    @ParameterizedTest
+    @ValueSource(strings = {"main","first","second","third","this","tha"})
+    @Rollback(false)
+    public void testAddStreetToCity(String name) {
         Street chai = new Street();
-        chai.setName("Chai");
-
-       // streetService.saveStreet(chai);
-       //streetService.saveStreet(chai2);
+        chai.setName(name);
 
         streetService.setToCity(chai,cityService.findById(1L));
         streetService.saveStreet(chai);
-
-
-        Street chai2 = new Street();
-        chai2.setName("Chai2");
-        streetService.setToCity(chai2,cityService.findById(1L));
-        streetService.saveStreet(chai2);
-        /* streetService.setToCity(chai2,cityService.findById(1L));
-
-        streetService.saveStreet(chai2);*/
-
+        var found = streetService.findStreetByName(name);
+        assertNotNull(found);
+        assertEquals(name,found.getName());
     }
+
+
 
     @AfterEach
     @Commit
