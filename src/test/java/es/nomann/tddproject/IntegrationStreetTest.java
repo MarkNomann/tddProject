@@ -37,7 +37,6 @@ public class IntegrationStreetTest {
    private CityService cityService;
 
     @BeforeEach
-    @Commit
     public void setup() {
         City city = new City();
         city.setId(1L);
@@ -47,7 +46,6 @@ public class IntegrationStreetTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"main","first","second","third","this","tha"})
-    @Rollback(false)
     public void testAddStreetToCity(String name) {
         Street chai = new Street();
         chai.setName(name);
@@ -62,7 +60,6 @@ public class IntegrationStreetTest {
 
 
     @AfterEach
-    @Commit
     public void cleanup() {
       // cityService.deleteCity(cityService.findById(1L));
 

@@ -30,7 +30,6 @@ public class IntegrationPersonTest {
             "99, john, john@doe.com",
             "150, Mark, mark@doe.com"
     })
-    @Commit
     public void testCreatePerson(Long id, String name, String email) {
         var person = service.createPerson(id,name,email);
         assertNotNull(person);
@@ -39,14 +38,12 @@ public class IntegrationPersonTest {
 
     @ParameterizedTest
     @ValueSource(longs = {45,23,99})
-    @Commit
     public void deletePerson(Long id) {
         service.deletePerson(id);
         assertNull(service.findPerson(id));
     }
 
     @Test
-    @Commit
     public void testAssignCity() {
         var ret = service.assignCityToPerson(150L,1L);
         assertNotNull(ret.getCity());
