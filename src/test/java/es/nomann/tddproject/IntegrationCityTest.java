@@ -22,7 +22,7 @@ public class IntegrationCityTest {
 
     @Test
     public void testAddCity() {
-        City city = new City(1L,"Moscow");
+        City city = new City("Moscow");
         cityRepository.save(city);
         assertThat(city.getPeople().size()).isEqualTo(0);
     }

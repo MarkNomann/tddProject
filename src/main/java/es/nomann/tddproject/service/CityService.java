@@ -28,4 +28,8 @@ public class CityService {
     public List<City> cities() {
         return cityRepository.findAll();
     }
+
+    public City findByName(String name) {
+        return cityRepository.findByName(name).getCity();
+    }
 }

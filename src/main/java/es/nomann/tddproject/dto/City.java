@@ -1,10 +1,7 @@
 package es.nomann.tddproject.dto;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 public class City {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -23,8 +21,7 @@ public class City {
     private List<Street> streets = new ArrayList<>();
     public City() {}
 
-    public City(Long id, String name) {
-        this.id = id;
+    public City(String name) {
         this.name = name;
         this.people = new ArrayList<>();
     }

@@ -4,8 +4,7 @@ import es.nomann.tddproject.dto.City;
 import es.nomann.tddproject.service.CityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,19 @@ public class CityController {
     @GetMapping("/cities")
     public ResponseEntity<List<City>> cities() {
         return new ResponseEntity<>(cityService.cities(), HttpStatus.OK);
+    }
+
+    @PostMapping("/city")
+    public ResponseEntity<City> newCity(@RequestBody String name) {
+        City city = new City();
+        city.setName(name);
+        cityService.addCity(city);
+        return new ResponseEntity<>(city, HttpStatus.OK);
+    }
+
+    @GetMapping("/city/{cityname}")
+    public ResponseEntity<City> getCity(@PathVariable("cityname") String cityname) {
+        var foundCity = cityService.findByName(cityname);
+        return new ResponseEntity<>(foundCity, HttpStatus.OK);
     }
 }
