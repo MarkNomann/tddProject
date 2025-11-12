@@ -18,9 +18,8 @@ public class PersonService {
         this.cityRepository = cityRepository;
     }
 
-    public Person createPerson(Long id, String username, String email) {
+    public Person createPerson(String username, String email) {
         Person person = new Person();
-        person.setId(id);
         person.setUsername(username);
         person.setEmail(email);
         repository.save(person);
@@ -29,6 +28,10 @@ public class PersonService {
 
     public Person findPerson(Long id) {
         return repository.findById(id).orElse(null);
+    }
+
+    public Person findPersonByUsername(String username) {
+        return repository.findByName(username);
     }
 
     public Person deletePerson(Long id) {

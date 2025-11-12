@@ -13,9 +13,8 @@ class TddProjectApplicationTests {
 
     @Test
     public void createPerson() {
-        Person p = new Person(1L,"mark","mark@gmail.com");
-       assertNotNull(p);
-       assertEquals(1L,p.getId());
+        Person p = new Person("mark","mark@gmail.com",null);
+        assertNotNull(p);
     }
 
 }

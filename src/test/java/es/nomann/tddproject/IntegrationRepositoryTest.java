@@ -24,7 +24,7 @@ public class IntegrationRepositoryTest {
 
     @BeforeEach
     public void setup() {
-        testPerson = new Person(1L,"mark", "mark@gmail.com");
+        testPerson = new Person("mark", "mark@gmail.com",null);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class IntegrationRepositoryTest {
 
     @Test
     public void testFindPersonById() {
-        Person person = new Person(2L,"person1","person1gmail.com");
+        Person person = new Person("person1","person1gmail.com",null);
         repository.save(person);
         var found = repository.findById(person.getId());
         assertNotNull(found);

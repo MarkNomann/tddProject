@@ -4,6 +4,7 @@ import es.nomann.tddproject.repository.CityRepository;
 import es.nomann.tddproject.repository.PersonRepository;
 import es.nomann.tddproject.service.PersonService;
 import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -22,31 +23,34 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IntegrationPersonTest {
 
     @Autowired
-    private PersonService service;
+    private PersonService personService;
+
 
     @ParameterizedTest
     @CsvSource({
-            "23, ullf, soko@gmail.com",
-            "45, anna, anna@example.com",
-            "99, john, john@doe.com",
-            "150, Mark, mark@doe.com"
+            "ullf, soko@gmail.com",
+            "anna, anna@example.com",
+            "john, john@doe.com",
+            "Mark, mark@doe.com"
     })
-    public void testCreatePerson(Long id, String name, String email) {
-        var person = service.createPerson(id,name,email);
+    public void testCreatePerson(String name, String email) {
+        var person = personService.createPerson(name,email);
         assertNotNull(person);
         assertEquals(name,person.getUsername());
     }
 
     @ParameterizedTest
-    @ValueSource(longs = {45,23,99})
-    public void deletePerson(Long id) {
-        service.deletePerson(id);
-        assertNull(service.findPerson(id));
+    @CsvSource({
+            "ullf","john"
+    })
+    public void deletePerson(String name) {
+        personService.deletePerson(personService.findPersonByUsername(name).getId());
+        assertNull(personService.findPersonByUsername(name));
     }
 
     @Test
     public void testAssignCity() {
-        var ret = service.assignCityToPerson(150L,1L);
+        var ret = personService.assignCityToPerson(personService.findPersonByUsername("anna").getId(),1L);
         assertNotNull(ret.getCity());
     }
 
