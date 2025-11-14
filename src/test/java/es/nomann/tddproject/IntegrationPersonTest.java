@@ -1,7 +1,9 @@
 package es.nomann.tddproject;
 
+import es.nomann.tddproject.dto.City;
 import es.nomann.tddproject.repository.CityRepository;
 import es.nomann.tddproject.repository.PersonRepository;
+import es.nomann.tddproject.service.CityService;
 import es.nomann.tddproject.service.PersonService;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,12 +21,15 @@ import org.springframework.test.annotation.Commit;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Import(PersonService.class)
+@Import({PersonService.class,CityService.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class IntegrationPersonTest {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private CityService cityService;
 
     @ParameterizedTest
     @CsvSource({
@@ -61,7 +66,9 @@ public class IntegrationPersonTest {
     })
     public void testAssignCity(String name, String email) {
         personService.createPerson(name,email);
-        var ret = personService.assignCityToPerson(personService.findPersonByUsername(name).getUsername(),2L);
+        City city = new City("Moscow");
+        cityService.addCity(city);
+        var ret = personService.assignCityToPerson(personService.findPersonByUsername(name).getUsername(),city.getId());
         assertNotNull(ret.getCity());
         assertEquals("Moscow",personService.findPersonByUsername(name).getCity().getName());
     }
