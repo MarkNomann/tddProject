@@ -39,8 +39,7 @@ public class IntegrationStreetTest {
     @BeforeEach
     public void setup() {
         City city = new City();
-        city.setId(1L);
-        city.setName("Mpscow");
+        city.setName("Riga");
         cityService.addCity(city);
     }
 
@@ -50,7 +49,7 @@ public class IntegrationStreetTest {
         Street chai = new Street();
         chai.setName(name);
 
-        streetService.setToCity(chai,cityService.findById(1L));
+        streetService.setToCity(chai,cityService.findByName("Riga"));
         streetService.saveStreet(chai);
         var found = streetService.findStreetByName(name);
         assertNotNull(found);
