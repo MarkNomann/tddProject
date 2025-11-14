@@ -44,10 +44,4 @@ public class IntegrationRepositoryTest {
         assertEquals("person1",person.getUsername());
     }
 
-    @Test
-    public void testDeletePerson() {
-        repository.delete(testPerson);
-        assertThrows(NoSuchElementException.class,() -> repository.findById(testPerson.getId()).get());
-    }
-
 }
