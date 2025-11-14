@@ -23,9 +23,8 @@ public class CityController {
     }
 
     @PostMapping("/city")
-    public ResponseEntity<City> newCity(@RequestBody String name) {
-        City city = new City();
-        city.setName(name);
+    public ResponseEntity<City> newCity(@RequestBody City city) {
+        city.setName(city.getName());
         cityService.addCity(city);
         return new ResponseEntity<>(city, HttpStatus.OK);
     }
