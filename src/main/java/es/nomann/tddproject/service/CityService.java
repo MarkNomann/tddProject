@@ -30,6 +30,6 @@ public class CityService {
     }
 
     public City findByName(String name) {
-        return cityRepository.findByName(name).getCity();
+        return cityRepository.findByName(name);
     }
 }

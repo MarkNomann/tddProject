@@ -4,6 +4,7 @@ import es.nomann.tddproject.dto.City;
 import es.nomann.tddproject.dto.Street;
 import es.nomann.tddproject.repository.StreetRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Service
 public class StreetService {
 
+    @Autowired
     private final StreetRepository streetRepository;
 
     public StreetService(StreetRepository streetRepository) {

@@ -32,9 +32,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class IntegrationStreetTest {
 
     @Autowired
-   private StreetService streetService;
+    private StreetService streetService;
     @Autowired
-   private CityService cityService;
+    private CityService cityService;
 
     @BeforeEach
     public void setup() {
@@ -48,7 +48,6 @@ public class IntegrationStreetTest {
     public void testAddStreetToCity(String name) {
         Street chai = new Street();
         chai.setName(name);
-
         streetService.setToCity(chai,cityService.findByName("Riga"));
         streetService.saveStreet(chai);
         var found = streetService.findStreetByName(name);
