@@ -43,9 +43,8 @@ public class PersonService {
     @Transactional
     public Person assignCityToPerson(String username, Long idCity) {
         Person person = findPersonByUsername(username);
-        person.setCity(cityRepository.findById(idCity).orElse(null));
+        person.setCity(cityRepository.findById(idCity).orElseThrow(NullPointerException::new));
         repository.save(person);
-        System.out.println(person.getCity().getId());
         return person;
     }
 
