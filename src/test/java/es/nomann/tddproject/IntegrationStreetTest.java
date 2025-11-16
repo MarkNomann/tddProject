@@ -20,7 +20,11 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Propagation;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,6 +59,20 @@ public class IntegrationStreetTest {
         var found = streetService.findStreetByName(name);
         assertNotNull(found);
         assertEquals(name,found.getName());
+    }
+
+    @Test
+    public void testSetNeighbours() {
+        var city = cityService.findByName(cityToTest);
+        var newStreetsNeighbors = List.of(new Street("main",city,null),new Street("first",city,null),new Street("second",city,null),new Street("third",city,null));
+        city.setStreets(newStreetsNeighbors);
+        var neigbors = city.getStreets().stream()
+                .filter(street -> street.getName().equals("main") || street.getName().equals("first")).collect(Collectors.toSet());
+        var out = streetService.findStreetByName("second");
+        streetService.setNeighbors(out,neigbors);
+        assertThat(!city.getStreets().isEmpty());
+        assertEquals(newStreetsNeighbors.size(),city.getStreets().size());
+        assertEquals(2,streetService.findStreetByName("second").getNeighbors().size());
     }
 
 
