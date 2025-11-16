@@ -36,20 +36,22 @@ public class IntegrationStreetTest {
     @Autowired
     private CityService cityService;
 
+    private final String cityToTest = "Riga";
+
     @BeforeEach
     public void setup() {
         City city = new City();
-        city.setName("Riga");
+        city.setName(cityToTest);
         cityService.addCity(city);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"main","first","second","third","this","tha"})
     public void testAddStreetToCity(String name) {
-        Street chai = new Street();
-        chai.setName(name);
-        streetService.setToCity(chai,cityService.findByName("Riga"));
-        streetService.saveStreet(chai);
+        Street newStreet = new Street();
+        newStreet.setName(name);
+        streetService.setToCity(newStreet,cityService.findByName(cityToTest));
+        streetService.saveStreet(newStreet);
         var found = streetService.findStreetByName(name);
         assertNotNull(found);
         assertEquals(name,found.getName());
