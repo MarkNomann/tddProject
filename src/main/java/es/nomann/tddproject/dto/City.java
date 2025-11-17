@@ -1,6 +1,7 @@
 package es.nomann.tddproject.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,9 +16,11 @@ public class City {
     private String name;
 
     @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Person> people = new ArrayList<>();
 
     @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Street> streets = new ArrayList<>();
     public City() {}
 

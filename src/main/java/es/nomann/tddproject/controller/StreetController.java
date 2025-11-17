@@ -1,6 +1,7 @@
 package es.nomann.tddproject.controller;
 
 import es.nomann.tddproject.dto.Street;
+import es.nomann.tddproject.dto.StreetReq;
 import es.nomann.tddproject.repository.StreetRepository;
 import es.nomann.tddproject.service.CityService;
 import es.nomann.tddproject.service.StreetService;
@@ -22,11 +23,10 @@ public class StreetController {
     }
 
     @PostMapping("/street")
-    public ResponseEntity<Street> addNewStreet(@RequestBody Street street) {
-        var cityName = street.getCity().getName();
-        var city = cityService.findByName(cityName);
-        street.setName(street.getName());
-        System.out.println(street.getName());
+    public ResponseEntity<Street> addNewStreet(@RequestBody StreetReq streetReq) {
+        var city = cityService.findByName(streetReq.getCityName());
+        Street street = new Street();
+        street.setName(streetReq.getStreetName());
         street.setCity(city);
         streetService.saveStreet(street);
         streetService.setToCity(street,city);
