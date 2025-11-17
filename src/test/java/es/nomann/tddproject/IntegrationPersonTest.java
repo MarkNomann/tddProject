@@ -68,7 +68,7 @@ public class IntegrationPersonTest {
         personService.createPerson(name,email);
         City city = new City("Moscow");
         cityService.addCity(city);
-        var ret = personService.assignCityToPerson(personService.findPersonByUsername(name).getUsername(),city.getId());
+        var ret = personService.assignCityToPerson(personService.findPersonByUsername(name).getUsername(),city.getName());
         assertNotNull(ret.getCity());
         assertEquals("Moscow",personService.findPersonByUsername(name).getCity().getName());
     }

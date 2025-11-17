@@ -41,9 +41,9 @@ public class PersonService {
     }
 
     @Transactional
-    public Person assignCityToPerson(String username, Long idCity) {
+    public Person assignCityToPerson(String username, String cityName) {
         Person person = findPersonByUsername(username);
-        person.setCity(cityRepository.findById(idCity).orElseThrow(NullPointerException::new));
+        person.setCity(cityRepository.findByName(cityName));
         repository.save(person);
         return person;
     }
