@@ -33,9 +33,7 @@ public class PersonService {
     }
 
     public Person findPersonByUsername(String username) {
-        var person = repository.findByName(username);
-        var result = Optional.of(person);
-        return result.orElse(null);
+        return repository.findByName(username);
     }
 
     public Person deletePerson(Long id) {

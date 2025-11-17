@@ -80,7 +80,7 @@ public class IntegrationPersonTest {
     }
 
     @Test
-    public void testDeletePerson() {
+    public void testDeletePersons() {
         HashMap<String,String> persons = new HashMap<>();
         persons.put("Ullf","soko@gmail.com");
         persons.put("Anna","anna@example.com");
