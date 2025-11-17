@@ -18,6 +18,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Commit;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -40,6 +43,7 @@ public class IntegrationPersonTest {
     })
     public void testCreatePerson(String name, String email) {
         var person = personService.createPerson(name,email);
+
         assertNotNull(person);
         assertEquals(name,person.getUsername());
     }
@@ -54,6 +58,7 @@ public class IntegrationPersonTest {
     public void deletePerson(String name, String email) {
         personService.createPerson(name,email);
         personService.deletePerson(personService.findPersonByUsername(name).getId());
+
         assertNull(personService.findPersonByUsername(name));
     }
 
@@ -69,12 +74,30 @@ public class IntegrationPersonTest {
         City city = new City("Moscow");
         cityService.addCity(city);
         var ret = personService.assignCityToPerson(personService.findPersonByUsername(name).getUsername(),city.getName());
+
         assertNotNull(ret.getCity());
         assertEquals("Moscow",personService.findPersonByUsername(name).getCity().getName());
     }
 
-  /*  @Test
-    public void testToTest() {
-        assertEquals(2,2);
-    }*/
+    @Test
+    public void testDeletePerson() {
+        HashMap<String,String> persons = new HashMap<>();
+        persons.put("Ullf","soko@gmail.com");
+        persons.put("Anna","anna@example.com");
+        persons.put("John","john@doe.com");
+        persons.put("Mark","mark@doe.com");
+
+        persons.forEach((name,email)->{
+            personService.createPerson(name,email);
+        });
+
+        persons.forEach((name,email)->{
+            personService.deletePerson(personService.findPersonByUsername(name).getId());
+        });
+
+        assertNull(personService.findPersonByUsername("Ullf"));
+        assertNull(personService.findPersonByUsername("John"));
+        assertNull(personService.findPersonByUsername("Mark"));
+        assertNull(personService.findPersonByUsername("Anna"));
+    }
 }

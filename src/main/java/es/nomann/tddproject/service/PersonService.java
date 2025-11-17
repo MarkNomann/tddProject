@@ -7,6 +7,8 @@ import es.nomann.tddproject.repository.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PersonService {
 
@@ -31,20 +33,27 @@ public class PersonService {
     }
 
     public Person findPersonByUsername(String username) {
-        return repository.findByName(username);
+        var person = repository.findByName(username);
+        var result = Optional.of(person);
+        return result.orElse(null);
     }
 
     public Person deletePerson(Long id) {
         Person person = repository.findById(id).orElse(null);
-        repository.delete(person);
+        if (person != null) {
+            repository.delete(person);
+        }
         return person;
     }
 
     @Transactional
     public Person assignCityToPerson(String username, String cityName) {
         Person person = findPersonByUsername(username);
-        person.setCity(cityRepository.findByName(cityName));
-        repository.save(person);
+        var city = cityRepository.findByName(cityName);
+        if ( city != null) {
+            person.setCity(city);
+            repository.save(person);
+        }
         return person;
     }
 
