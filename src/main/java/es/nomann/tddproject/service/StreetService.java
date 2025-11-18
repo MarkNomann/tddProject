@@ -50,5 +50,9 @@ public class StreetService {
         streetRepository.save(mainStreet);
     }
 
+    public List<Street> findAllByCity(String name) {
+        return streetRepository.findAllByCity(name);
+    }
+
 
 }

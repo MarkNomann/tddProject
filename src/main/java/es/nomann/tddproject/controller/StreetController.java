@@ -2,14 +2,13 @@ package es.nomann.tddproject.controller;
 
 import es.nomann.tddproject.dto.Street;
 import es.nomann.tddproject.dto.StreetReq;
-import es.nomann.tddproject.repository.StreetRepository;
 import es.nomann.tddproject.service.CityService;
 import es.nomann.tddproject.service.StreetService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class StreetController {
@@ -30,6 +29,19 @@ public class StreetController {
         street.setCity(city);
         streetService.saveStreet(street);
         streetService.setToCity(street,city);
-        return new ResponseEntity<>(street, HttpStatus.OK);
+        return ResponseEntity.ok(street);
     }
+
+    @GetMapping("/streets")
+    public ResponseEntity<List<Street>> getAllStreetsByCity(@RequestParam String city) {
+        var result = streetService.findAllByCity(city);
+        return ResponseEntity.ok(result);
+    }
+
+   /* @PostMapping("/street/neighbors")
+    public ResponseEntity<Street> addNewStreetNeighbor(@RequestBody StreetReq streetReq) {
+        var city = cityService.findByName(streetReq.getCityName());
+        var strretstreetService.findStreetByName(streetReq.getStreetName());
+        streetService.setNeighbors();
+    }*/
 }
