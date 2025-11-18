@@ -13,8 +13,8 @@ public class Street {
     private Long id;
     private String name;
     @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city_id;
+    @JoinColumn(name = "city")
+    private City city;
     @ManyToMany
     @JoinTable(
             name = "neighbors",
@@ -25,9 +25,9 @@ public class Street {
 
     public Street() {}
 
-    public Street(final String name, final City city_id, Set<Street> neighbors) {
+    public Street(final String name, final City city, Set<Street> neighbors) {
         this.name = name;
-        this.city_id = city_id;
+        this.city = city;
         this.neighbors = neighbors;
     }
 
@@ -40,11 +40,11 @@ public class Street {
     }
 
     public City getCity() {
-        return city_id;
+        return city;
     }
 
     public void setCity(City city) {
-        this.city_id = city;
+        this.city = city;
     }
 
     public void setName(String name) {

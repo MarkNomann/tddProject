@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface StreetRepository extends CrudRepository<Street, Long> {
 
-    @Query("SELECT streetName FROM Street streetName WHERE streetName.name=:name")
+    @Query("SELECT street FROM Street street WHERE street.name=:name")
     Street findByName(@Param("name") String name);
 
-    @Query("SELECT streetName FROM Street streetName WHERE streetName.city_id.name=:name")
+    @Query("SELECT streets FROM Street streets WHERE streets.city.name=:name")
     List<Street> findAllByCity(@Param("name") String name);
 
 }

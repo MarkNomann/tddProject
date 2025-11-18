@@ -15,11 +15,11 @@ public class City {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Person> people = new ArrayList<>();
 
-    @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Street> streets = new ArrayList<>();
     public City() {}

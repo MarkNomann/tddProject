@@ -7,7 +7,7 @@
 CREATE TABLE IF NOT EXISTS street (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    city_id BIGINT REFERENCES city(id)
+    city BIGINT REFERENCES city(id)
 )
 
 
