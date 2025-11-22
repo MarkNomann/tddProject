@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class CityService {
 
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
+
+    public CityService(CityRepository cityRepository) {
+        this.cityRepository = cityRepository;
+
+    }
 
     public City findById(final Long id) {
         return cityRepository.findById(id).orElse(null);
