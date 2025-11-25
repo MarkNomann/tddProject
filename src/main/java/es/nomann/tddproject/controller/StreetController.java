@@ -29,12 +29,15 @@ public class StreetController {
     @PostMapping("/street")
     public ResponseEntity<Street> addNewStreet(@RequestBody StreetReq streetReq) {
         var city = cityService.findByName(streetReq.getCityName());
-        Street street = new Street();
-        street.setName(streetReq.getStreetName());
-        street.setCity(city);
-        streetService.saveStreet(street);
-        streetService.setToCity(street,city);
-        return ResponseEntity.ok(street);
+        if (city == null) {
+            Street street = new Street();
+            street.setName(streetReq.getStreetName());
+            street.setCity(city);
+            streetService.saveStreet(street);
+            streetService.setToCity(street,city);
+            return ResponseEntity.ok(street);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/streets")
@@ -48,9 +51,10 @@ public class StreetController {
                 logger.info("ok");
                 street.setCity(city);
                 streetService.saveStreet(street);
+                return ResponseEntity.ok(res);
             }
         }
-        return ResponseEntity.ok(res);
+        return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("/streets")
