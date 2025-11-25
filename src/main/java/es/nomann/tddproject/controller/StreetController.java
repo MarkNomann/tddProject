@@ -29,8 +29,8 @@ public class StreetController {
     @PostMapping("/street")
     public ResponseEntity<Street> addNewStreet(@RequestBody StreetReq streetReq) {
         var city = cityService.findByName(streetReq.getCityName());
-        //logger.info(city.getName());
         if (city != null) {
+            logger.info(city.getName());
             Street street = new Street();
             street.setName(streetReq.getStreetName());
             street.setCity(city);
