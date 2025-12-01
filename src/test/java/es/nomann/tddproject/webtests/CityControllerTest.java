@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+// To test City controller only
 @WebMvcTest(CityController.class)
 public class CityControllerTest {
 
@@ -22,7 +22,6 @@ public class CityControllerTest {
 
     @MockitoBean
     private CityService cityService;
-
 
     @Test
     void basicTest() {
@@ -37,6 +36,11 @@ public class CityControllerTest {
                .contentType(MediaType.APPLICATION_JSON)
                .exchange().getResponse().getStatus())
                .isEqualTo(HttpStatus.CREATED.value());
+    }
+
+    @Test
+    void getCityTest() {
+         assertThat(client.get().uri("/city/{cityname}","Moscow").exchange().getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
 }
