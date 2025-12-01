@@ -13,6 +13,7 @@ public class CityController {
 
     final private CityService cityService;
 
+
     public CityController(final CityService cityService) {
         this.cityService = cityService;
     }
@@ -24,9 +25,8 @@ public class CityController {
 
     @PostMapping("/city")
     public ResponseEntity<City> newCity(@RequestBody City city) {
-        city.setName(city.getName());
-        cityService.addCity(city);
-        return new ResponseEntity<>(city, HttpStatus.OK);
+        var saved = cityService.addCity(city);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
     @GetMapping("/city/{cityname}")
