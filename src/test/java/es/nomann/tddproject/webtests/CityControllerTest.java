@@ -40,7 +40,11 @@ public class CityControllerTest {
 
     @Test
     void getCityTest() {
-         assertThat(client.get().uri("/city/{cityname}","Moscow").exchange().getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+         assertThat(client.get().uri("/city/{cityname}","Moscow")
+                 .exchange()
+                 .getResponse()
+                 .getStatus())
+                 .isEqualTo(HttpStatus.OK.value());
     }
 
 }
