@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -49,7 +50,7 @@ public class StreetController {
             Street street = new Street();
             street.setName(res.get(i));
             if (city != null) {
-                logger.info("ok");
+                logger.info("ok /streets");
                 street.setCity(city);
                 streetService.saveStreet(street);
                 return ResponseEntity.ok(res);
@@ -64,10 +65,18 @@ public class StreetController {
         return ResponseEntity.ok(result);
     }
 
-   /* @PostMapping("/street/neighbors")
-    public ResponseEntity<Street> addNewStreetNeighbor(@RequestBody StreetReq streetReq) {
-        var city = cityService.findByName(streetReq.getCityName());
-        var strretstreetService.findStreetByName(streetReq.getStreetName());
-        streetService.setNeighbors();
-    }*/
+    @PostMapping("/street/neighbor")
+    public ResponseEntity<Street> addNewStreetNeighbor(@RequestBody StreetReq[] streets) {
+        var strToAddTo = streetService.findStreetByName(streets[0].getStreetName());
+        var res = new Street();
+        if (strToAddTo != null && streets[0].getCityName().equals(streets[1].getCityName())) {
+            logger.info("ok /street/neighbor");
+            res.setName(streets[1].getStreetName());
+            res.setCity(cityService.findByName(streets[1].getCityName()));
+            streetService.saveStreet(res);
+            streetService.setNeighbor(strToAddTo,res);
+            return ResponseEntity.ok(res);
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }
