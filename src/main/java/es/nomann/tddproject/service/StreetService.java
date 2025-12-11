@@ -42,10 +42,18 @@ public class StreetService {
     public void setNeighbor(Street street, Street neighbor) {
         var mainStreet = streetRepository.findByName(street.getName());
         var set = mainStreet.getNeighbors();
+        set.add(neighbor);
+        mainStreet.setNeighbors(set);
+        streetRepository.save(mainStreet);
+    }
+
+    public void setNeighbors(Street street, Set<Street> neighbor) {
+        var mainStreet = streetRepository.findByName(street.getName());
+        var set = mainStreet.getNeighbors();
         if (set == null) {
             set = new HashSet<>();
         }
-        set.add(neighbor);
+        set.addAll(neighbor);
         mainStreet.setNeighbors(set);
         streetRepository.save(mainStreet);
     }
