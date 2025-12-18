@@ -75,8 +75,6 @@ public class IntegrationStreetTest {
         assertEquals(2,streetService.findStreetByName("second").getNeighbors().size());
     }
 
-
-
     @AfterEach
     public void cleanup() {
       // cityService.deleteCity(cityService.findById(1L));
